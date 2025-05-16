@@ -18,8 +18,12 @@ public:
     virtual void StartTargeting(UGameplayAbility* Ability) override;
     virtual void ConfirmTargetingAndContinue() override;
 
-    UFUNCTION(BlueprintNativeEvent)
-    void PerformTraceMulti(TArray<FHitResult>& HitResults);
+    UPROPERTY(BlueprintReadOnly, Category="Pineco")
+    TArray<FHitResult> CurrentHitResults;
 
-    virtual void Tick(float DeltaSeconds) override;
+    UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category="Pineco")
+    void SetShouldDestroyOnConfirmation(bool bShould);
+
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category="Pineco")
+    void SubmitHitResults();
 };

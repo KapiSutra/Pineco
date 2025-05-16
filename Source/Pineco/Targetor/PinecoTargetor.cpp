@@ -10,10 +10,9 @@
 APinecoTargetor::APinecoTargetor()
 {
     // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-    PrimaryActorTick.bCanEverTick = true;
+    PrimaryActorTick.bCanEverTick = false;
     this->ShouldProduceTargetDataOnServer = true;
     bReplicates = false;
-    // bDestroyOnConfirmation = false;
 }
 
 void APinecoTargetor::StartTargeting(UGameplayAbility* Ability)
@@ -24,24 +23,16 @@ void APinecoTargetor::StartTargeting(UGameplayAbility* Ability)
 
 void APinecoTargetor::ConfirmTargetingAndContinue()
 {
-    check(ShouldProduceTargetData());
-    ensure(SourceActor);
-    {
-        bDebug = false;
-
-        TArray<FHitResult> HitResults;
-        PerformTraceMulti(HitResults);
-
-        auto&& Handle = StartLocation.MakeTargetDataHandleFromHitResults(OwningAbility, HitResults);
-        TargetDataReadyDelegate.Broadcast(Handle);
-    }
+    unimplemented();
 }
 
-void APinecoTargetor::PerformTraceMulti_Implementation(TArray<FHitResult>& HitResults)
+void APinecoTargetor::SetShouldDestroyOnConfirmation(const bool bShould)
 {
+    bDestroyOnConfirmation = bShould;
 }
 
-void APinecoTargetor::Tick(const float DeltaSeconds)
+void APinecoTargetor::SubmitHitResults_Implementation()
 {
-    Super::Tick(DeltaSeconds);
+    auto&& Handle = StartLocation.MakeTargetDataHandleFromHitResults(OwningAbility, CurrentHitResults);
+    TargetDataReadyDelegate.Broadcast(Handle);
 }
