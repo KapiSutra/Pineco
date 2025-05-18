@@ -15,10 +15,15 @@ APinecoTargetor_Overlap::APinecoTargetor_Overlap()
 void APinecoTargetor_Overlap::ConfirmTargetingAndContinue()
 {
     check(ShouldProduceTargetData());
-    if (SourceActor)
+    if (SourceActor && IsConfirmTargetingAllowed())
     {
         SubmitHitResults();
     }
+}
+
+void APinecoTargetor_Overlap::StartTargeting(UGameplayAbility* Ability)
+{
+    Super::StartTargeting(Ability);
 }
 
 
@@ -26,21 +31,23 @@ void APinecoTargetor_Overlap::ConfirmTargetingAndContinue()
 void APinecoTargetor_Overlap::Tick(const float DeltaTime)
 {
     Super::Tick(DeltaTime);
-
     CurrentHitResults.Reset(CurrentHitResults.Num());
 
-    TArray<UPrimitiveComponent*> Components;
-    OverlappingComponents(Components);
-    for (auto&& Component : Components)
+    if (SourceActor)
     {
-        const auto& OverlapInfos = Component->GetOverlapInfos();
-        for (const auto& OverlapInfo : OverlapInfos)
+        TArray<UPrimitiveComponent*> Components;
+        OverlappingComponents(Components);
+        for (auto&& Component : Components)
         {
-            CurrentHitResults.Add(OverlapInfo.OverlapInfo);
+            const auto& OverlapInfos = Component->GetOverlapInfos();
+            for (const auto& OverlapInfo : OverlapInfos)
+            {
+                CurrentHitResults.Add(OverlapInfo.OverlapInfo);
+            }
         }
-    }
 
-    ConfirmTargeting();
+        ConfirmTargeting();
+    }
 }
 
 void APinecoTargetor_Overlap::OverlappingComponents_Implementation(TArray<UPrimitiveComponent*>& Components)

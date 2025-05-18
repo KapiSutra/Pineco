@@ -2,3 +2,8 @@
 
 
 #include "PinecoTargetorWindow.h"
+
+UPinecoTargetorWindow::UPinecoTargetorWindow()
+{
+    this->NotifyName = "Targetor Window";
+}

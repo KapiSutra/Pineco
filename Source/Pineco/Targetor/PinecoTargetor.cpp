@@ -33,6 +33,9 @@ void APinecoTargetor::SetShouldDestroyOnConfirmation(const bool bShould)
 
 void APinecoTargetor::SubmitHitResults_Implementation()
 {
-    auto&& Handle = StartLocation.MakeTargetDataHandleFromHitResults(OwningAbility, CurrentHitResults);
-    TargetDataReadyDelegate.Broadcast(Handle);
+    if (CurrentHitResults.Num() > 0)
+    {
+        auto&& Handle = StartLocation.MakeTargetDataHandleFromHitResults(OwningAbility, CurrentHitResults);
+        TargetDataReadyDelegate.Broadcast(Handle);
+    }
 }

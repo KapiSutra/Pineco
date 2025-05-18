@@ -16,6 +16,7 @@ public:
     APinecoTargetor_Overlap();
 
     virtual void ConfirmTargetingAndContinue() override;
+    virtual void StartTargeting(UGameplayAbility* Ability) override;
 
     // Called every frame
     virtual void Tick(float DeltaTime) override;

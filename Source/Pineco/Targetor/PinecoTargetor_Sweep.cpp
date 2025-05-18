@@ -14,7 +14,7 @@ APinecoTargetor_Sweep::APinecoTargetor_Sweep()
 void APinecoTargetor_Sweep::ConfirmTargetingAndContinue()
 {
     check(ShouldProduceTargetData());
-    if (SourceActor)
+    if (SourceActor && IsConfirmTargetingAllowed())
     {
         PerformSweep(CurrentHitResults);
         SubmitHitResults();

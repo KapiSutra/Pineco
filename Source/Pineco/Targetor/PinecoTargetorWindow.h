@@ -19,4 +19,6 @@ class PINECO_API UPinecoTargetorWindow : public UAnimNotify_PlayMontageNotifyWin
 public:
     UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Pineco")
     FInstancedStruct Payload;
+
+    UPinecoTargetorWindow();
 };
