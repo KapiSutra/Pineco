@@ -3,6 +3,8 @@
 
 #include "PinecoTargetor_Overlap.h"
 
+#include "Components/PrimitiveComponent.h"
+
 
 // Sets default values
 APinecoTargetor_Overlap::APinecoTargetor_Overlap()
